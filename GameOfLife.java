@@ -95,9 +95,9 @@ public class GameOfLife {
 				int count = countNeighbors(x, y);
 				nextGeneration[x][y] = lifeGeneration[x][y];
 				// if are 3 live neighbors around empty cells - the cell becomes alive
-				nextGeneration[x][y] = (count == 3) ? true : nextGeneration[x][y];
+				nextGeneration[x][y] = (count == 2) ? true : nextGeneration[x][y];
 				// if cell has less than 2 or greater than 3 neighbors - it will be die
-				nextGeneration[x][y] = ((count < 2) || (count > 3)) ? false : nextGeneration[x][y];
+				nextGeneration[x][y] = ((count < 1) || (count > 3)) ? false : nextGeneration[x][y];
 			}
 		}
 		for (int x = 0; x < LIFE_SIZE; x++) {
