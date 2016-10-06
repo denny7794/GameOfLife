@@ -4,7 +4,9 @@
 */
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
 
 public class GameOfLife {
 
@@ -16,6 +18,7 @@ public class GameOfLife {
 	final int BTN_PANEL_SIZE = 58;
 	boolean[][] lifeGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
 	boolean[][] nextGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
+	Random random = new Random();
 	JFrame frame;
 	Canvas canvasPanel;
 
@@ -35,9 +38,9 @@ public class GameOfLife {
 		//
 		
 		JButton fillButton = new JButton("Fill");
-		//fillButton.addActionListener(new FillButtonListener());
+		fillButton.addActionListener(new FillButtonListener());
 		
-		JButton stepButton = new JButton();
+		JButton stepButton = new JButton("Step");
 		
 		JPanel btnPanel = new JPanel();
 		btnPanel.add(fillButton);
@@ -49,7 +52,30 @@ public class GameOfLife {
 		frame.setVisible(true);
 	}
 	
+	// randomly fill cells
+	public class FillButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent ev){
+			//countGeneration = 1;
+			for(int x = 0; x < LIFE_SIZE; x++) {
+				for(int y=0; y < LIFE_SIZE; y++) {
+					lifeGeneration[x][y] = random.nextBoolean();
+				}
+			}
+			canvasPanel.repaint();
+		}
+	}
+	
 	public class Canvas extends JPanel {
-		
+		@Override
+		public void paint(Graphics g) {
+			super.paint(g);
+			for(int x = 0; x < LIFE_SIZE; x++) {
+				for(int y=0; y < LIFE_SIZE; y++) {
+					if(lifeGeneration[x][y]){
+						g.fillOval(x*POINT_RADIUS, y*POINT_RADIUS, POINT_RADIUS, POINT_RADIUS);
+					}
+				}
+			}
+		}
 	}
 }
