@@ -18,6 +18,7 @@ public class GameOfLife {
 	final int BTN_PANEL_SIZE = 58;
 	boolean[][] lifeGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
 	boolean[][] nextGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
+	boolean goNextGeneration = false;
 	Random random = new Random();
 	JFrame frame;
 	Canvas canvasPanel;
@@ -47,9 +48,18 @@ public class GameOfLife {
 			}
 		});
 		
+		final JButton goButton = new JButton("Play");
+		goButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev){
+				goNextGeneration = !goNextGeneration;
+				goButton.setText(goNextGeneration? "Stop" : "Play");
+			}
+		});
+		
 		JPanel btnPanel = new JPanel();
 		btnPanel.add(fillButton);
 		btnPanel.add(stepButton);
+		btnPanel.add(goButton);
 		
 		frame.getContentPane().add(BorderLayout.CENTER, canvasPanel);
 		frame.getContentPane().add(BorderLayout.SOUTH, btnPanel);
