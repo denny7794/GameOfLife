@@ -35,12 +35,17 @@ public class GameOfLife {
 		
 		canvasPanel = new Canvas();
 		canvasPanel.setBackground(Color.white);
-		//
 		
 		JButton fillButton = new JButton("Fill");
 		fillButton.addActionListener(new FillButtonListener());
 		
 		JButton stepButton = new JButton("Step");
+		stepButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				processOfLife();
+				canvasPanel.repaint();
+			}
+		});
 		
 		JPanel btnPanel = new JPanel();
 		btnPanel.add(fillButton);
@@ -63,6 +68,42 @@ public class GameOfLife {
 			}
 			canvasPanel.repaint();
 		}
+	}
+	
+	// count the number of neighbors
+	int countNeighbors(int x, int y) {
+		int count = 0;
+		for (int dx = -1; dx < 2; dx++) {
+			for (int dy = -1; dy < 2; dy++) {
+				int nX = x + dx;
+				int nY = y + dy;
+				nX = (nX < 0)  ? LIFE_SIZE - 1 : nX;
+				nY = (nY < 0)  ? LIFE_SIZE - 1 : nY;
+				nX = (nX > LIFE_SIZE - 1) ? 0 : nX;
+				nY = (nY > LIFE_SIZE - 1) ? 0 : nY;
+				count += (lifeGeneration[nX][nY]) ? 1 : 0;
+			}
+		}
+		if (lifeGeneration[x][y]) { count--;}
+		return count;
+	}
+	
+	// the main process of life
+	void processOfLife() {
+		for (int x = 0; x < LIFE_SIZE; x++) {
+			for (int y = 0; y < LIFE_SIZE; y++) {
+				int count = countNeighbors(x, y);
+				nextGeneration[x][y] = lifeGeneration[x][y];
+				// if are 3 live neighbors around empty cells - the cell becomes alive
+				nextGeneration[x][y] = (count == 3) ? true : nextGeneration[x][y];
+				// if cell has less than 2 or greater than 3 neighbors - it will be die
+				nextGeneration[x][y] = ((count < 2) || (count > 3)) ? false : nextGeneration[x][y];
+			}
+		}
+		for (int x = 0; x < LIFE_SIZE; x++) {
+			System.arraycopy(nextGeneration[x], 0, lifeGeneration[x], 0, LIFE_SIZE);
+		}
+		//countGeneration++;
 	}
 	
 	public class Canvas extends JPanel {
