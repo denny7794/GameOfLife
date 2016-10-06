@@ -34,12 +34,22 @@ public class GameOfLife {
 		canvasPanel.setBackground(Color.white);
 		//
 		
+		JButton fillButton = new JButton("Fill");
+		//fillButton.addActionListener(new FillButtonListener());
+		
+		JButton stepButton = new JButton();
+		
 		JPanel btnPanel = new JPanel();
-		//
+		btnPanel.add(fillButton);
+		btnPanel.add(stepButton);
 		
 		frame.getContentPane().add(BorderLayout.CENTER, canvasPanel);
 		frame.getContentPane().add(BorderLayout.SOUTH, btnPanel);
 		
 		frame.setVisible(true);
+	}
+	
+	public class Canvas extends JPanel {
+		
 	}
 }
