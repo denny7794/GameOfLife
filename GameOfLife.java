@@ -54,6 +54,7 @@ public class GameOfLife {
 			public void actionPerformed(ActionEvent ev){
 				goNextGeneration = !goNextGeneration;
 				goButton.setText(goNextGeneration? "Stop" : "Play");
+				System.out.println(goNextGeneration);
 			}
 		});
 		
@@ -69,6 +70,7 @@ public class GameOfLife {
 		
 		// endless loop of life
 		while (true){
+			System.out.println(goNextGeneration);
 			if (goNextGeneration) {
 				processOfLife();
 				canvasPanel.repaint();
