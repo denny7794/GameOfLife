@@ -12,6 +12,12 @@ public class GameOfLife {
 	}
 	
 	void go() {
-		System.out.println("Conway's Game of Life");
+		JFrame frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(300, 300);
+		frame.setLocation(200, 200);
+		frame.setResizable(false);
+		
+		frame.setVisible(true);
 	}
 }
