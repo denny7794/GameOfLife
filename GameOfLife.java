@@ -9,6 +9,13 @@ import javax.swing.*;
 public class GameOfLife {
 
 	final String NAME_OF_GAME = "Conway's Game of Life";
+	final int START_LOCATION = 200;
+	final int LIFE_SIZE = 50;
+	final int POINT_RADIUS = 10;
+	final int FIELD_SIZE = (LIFE_SIZE + 1) * POINT_RADIUS - 3;
+	final int BTN_PANEL_SIZE = 58;
+	boolean[][] lifeGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
+	boolean[][] nextGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
 	JFrame frame;
 	Canvas canvasPanel;
 
@@ -19,9 +26,16 @@ public class GameOfLife {
 	void go() {
 		frame = new JFrame(NAME_OF_GAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(300, 300);
-		frame.setLocation(200, 200);
+		frame.setSize(FIELD_SIZE, FIELD_SIZE + BTN_PANEL_SIZE);
+		frame.setLocation(START_LOCATION, START_LOCATION);
 		frame.setResizable(false);
+		
+		canvasPanel = new Canvas();
+		canvasPanel.setBackground(Color.white);
+		//
+		
+		JPanel btnPanel = new JPanel();
+		//
 		
 		frame.setVisible(true);
 	}
