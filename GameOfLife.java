@@ -37,6 +37,9 @@ public class GameOfLife {
 		JPanel btnPanel = new JPanel();
 		//
 		
+		frame.getContentPane().add(BorderLayout.CENTER, canvasPanel);
+		frame.getContentPane().add(BorderLayout.SOUTH, btnPanel);
+		
 		frame.setVisible(true);
 	}
 }
