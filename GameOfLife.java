@@ -19,6 +19,7 @@ public class GameOfLife {
 	boolean[][] lifeGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
 	boolean[][] nextGeneration = new boolean[LIFE_SIZE][LIFE_SIZE];
 	boolean goNextGeneration = false;
+	int showDelay = 200;
 	Random random = new Random();
 	JFrame frame;
 	Canvas canvasPanel;
@@ -65,6 +66,17 @@ public class GameOfLife {
 		frame.getContentPane().add(BorderLayout.SOUTH, btnPanel);
 		
 		frame.setVisible(true);
+		
+		// endless loop of life
+		while (true){
+			if (goNextGeneration) {
+				processOfLife();
+				canvasPanel.repaint();
+				try {
+					Thread.sleep(showDelay);
+				} catch (InterruptedException e) { e.printStackTrace();}
+			}
+		}
 	}
 	
 	// randomly fill cells
